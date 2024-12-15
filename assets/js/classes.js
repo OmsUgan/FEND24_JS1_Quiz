@@ -14,3 +14,7 @@ export class Question {
         this.Type = type;
     }
 }
+
+export function QuizzesFromStorage() {
+    return JSON.parse(localStorage.getItem("AnkademinQuizes")) || [];
+}

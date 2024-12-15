@@ -1,4 +1,6 @@
-const quizzesFromStorage = JSON.parse(localStorage.getItem("AnkademinQuizes")) || [];
+import { QuizzesFromStorage } from "./classes.js";
+
+const quizzesFromStorage = QuizzesFromStorage();
 
 const loadQuizList = () => {
     const quizStatusText = document.getElementById("quiz-status");

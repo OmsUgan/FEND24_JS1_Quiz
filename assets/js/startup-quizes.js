@@ -1,6 +1,6 @@
-import { Quiz, Question } from "./classes.js";
+import { Quiz, Question, QuizzesFromStorage } from "./classes.js";
 
-const quizzesFromStorage = JSON.parse(localStorage.getItem("AnkademinQuizes")) || [];
+const quizzesFromStorage = QuizzesFromStorage();
 
 if(quizzesFromStorage.length === 0) {
     const startQuiz1 = () => {
