@@ -1,8 +1,8 @@
 import { Quiz, Question } from "./classes.js";
 
-const quizesFromStorage = JSON.parse(localStorage.getItem("AnkademinQuizes")) || [];
+const quizzesFromStorage = JSON.parse(localStorage.getItem("AnkademinQuizes")) || [];
 
-if(quizesFromStorage.length === 0) {
+if(quizzesFromStorage.length === 0) {
     const startQuiz1 = () => {
         const questionData = [
             {
@@ -140,6 +140,6 @@ if(quizesFromStorage.length === 0) {
     const newQuiz = new Quiz(crypto.randomUUID(), "Städer Quiz", startQuiz1());
     const newQuiz2 = new Quiz(crypto.randomUUID(), "JavaScript Programmering Quiz", startQuiz2());
 
-    quizesFromStorage.push(newQuiz, newQuiz2);
-    localStorage.setItem("AnkademinQuizes", JSON.stringify(quizesFromStorage));
+    quizzesFromStorage.push(newQuiz, newQuiz2);
+    localStorage.setItem("AnkademinQuizes", JSON.stringify(quizzesFromStorage));
 }
