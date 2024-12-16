@@ -42,8 +42,36 @@
                 </div>
 
                 <div class="px-4 py-5 sm:p-6 dark:bg-gray-700">
-                    <div class="flex flex-col items-center" id="quiz-block">
-                        <p class="text-2xl pb-5 dark:text-white" id="quiz-status"></p>
+                    <div id="quiz-block">
+                        <div class="flex flex-col items-center" id="available-quizzes">
+                            <p class="text-2xl pb-5 dark:text-white" id="quiz-status"></p>
+                        </div>
+
+                        <div class="hidden" id="quiz-layout">
+                            <div class="flex justify-between items-center">
+                                <p class="text-2xl dark:text-white">Fråga 1 av 4</p>
+                            
+                                <div class="bg-neutral-100 dark:bg-gray-600 h-1.5 rounded-full w-80">
+                                    <span class="h-full bg-gray-400 dark:bg-gray-900 w-full block rounded-full" style="width: 10%"></span>
+                                </div>
+                            </div>
+
+                            <p class="text-3xl text-center dark:text-white py-10">Vilket av följande används för att definiera en funktion i JavaScript?</p>
+
+                            <div class="space-y-5 flex flex-col items-center">
+
+                                <div class="relative flex items-start">
+                                  <div class="flex h-10 items-center">
+                                    <input id="small" aria-describedby="small-description" name="plan" type="radio" class="relative size-4 appearance-none rounded-full border border-gray-300 bg-white before:absolute before:inset-1 before:rounded-full before:bg-white checked:border-gray-400 checked:bg-gray-400 dark:checked:border-gray-800 dark:checked:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400 forced-colors:appearance-auto forced-colors:before:hidden [&:not(:checked)]:before:hidden">
+                                  </div>
+                                  <div class="ml-3 text-sm/6">
+                                    <label for="small" class="text-2xl text-gray-900 dark:text-white">Small</label>
+                                  </div>
+                                </div>
+
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

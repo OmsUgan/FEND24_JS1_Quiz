@@ -1,6 +1,8 @@
 import { QuizzesFromStorage } from "./classes.js";
+import { Game } from "./quiz-logic.js";
 
 const quizzesFromStorage = QuizzesFromStorage();
+const quizAvailableDivBlock = document.getElementById("available-quizzes");
 
 const loadQuizList = () => {
     const quizStatusText = document.getElementById("quiz-status");
@@ -11,7 +13,6 @@ const loadQuizList = () => {
     } else {
         quizStatusText.textContent = "Tillgängliga quiz";
 
-        const quizDivBlock = document.getElementById("quiz-block");
         const quizUl = document.createElement("ul");
         quizUl.id = "quiz-list";
         quizUl.classList.add("space-y-2");
@@ -24,11 +25,13 @@ const loadQuizList = () => {
             quizButton.id = q.QuizId;
             quizButton.classList.add("w-full", "rounded-md", "bg-white", "dark:bg-gray-700", "px-3.5", "py-2.5", "text-lg", "font-medium", "text-gray-900", "dark:text-white", "hover:bg-gray-100", "dark:hover:bg-gray-800");
 
+            quizButton.addEventListener("click", new Game().selectQuiz);
+
             quizLi.append(quizButton);
             quizUl.append(quizLi);
             
         });
-        quizDivBlock.append(quizUl);
+        quizAvailableDivBlock.append(quizUl);
     }
 }
 
