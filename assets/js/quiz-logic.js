@@ -10,29 +10,29 @@ const quizOptions = document.getElementById("quiz-options");
 const quizProgressBar = document.getElementById("quiz-progressbar");
 
 let maxQuestions = 0;
-let questions = [];
+let selectedQuiz;
 let currentQuestion = {};
 let currentQuestionIndex = 0;
 let correctAnswers = 0;
 
 export class Game {
 
-    selectQuiz = (e) => {
+    getSelectQuiz = (e) => {
         const quizId = e.target.id;
         console.log(quizId);
     
-        const getSelectedQuiz = quizzesFromStorage.find(q => q.QuizId === quizId);
-        maxQuestions = getSelectedQuiz.Questions.length;
-        console.log(maxQuestions);
+        selectedQuiz = quizzesFromStorage.find(q => q.QuizId === quizId);
+        maxQuestions = selectedQuiz.Questions.length;
+        console.log(selectedQuiz);
     
-        this.getQuestions(getSelectedQuiz);
+        this.getQuestions(selectedQuiz);
         quizAvailableDivBlock.classList.add("hidden");
         quizLayoutDivBlock.classList.remove("hidden");
     }
 
     getQuestions = (quiz) => {
         currentQuestion = quiz.Questions[currentQuestionIndex];
-        console.log(currentQuestion);
+        console.log(quiz);
 
         quizQuestion.textContent = currentQuestion.QuestionText;
         quizCounter.textContent = `Fråga ${currentQuestionIndex + 1} av ${maxQuestions}`;
@@ -40,7 +40,7 @@ export class Game {
 
         quizOptions.innerHTML = "";
 
-        currentQuestion.Options.forEach((option, index) => {
+        currentQuestion.Options.forEach((option) => {
             const optionDiv = document.createElement("div");
             optionDiv.classList.add("relative", "flex", "items-start");
         
@@ -52,6 +52,11 @@ export class Game {
             optionInputRadio.type = "radio";
             optionInputRadio.name = "answer";
             optionInputRadio.value = option;
+
+            optionInputRadio.addEventListener("change", () => {
+                this.checkAnswer(option);
+            });
+
             optionInputDiv.append(optionInputRadio);
         
             const optionLabelDiv = document.createElement("div");
@@ -65,6 +70,25 @@ export class Game {
             optionDiv.append(optionInputDiv, optionLabelDiv);
             quizOptions.append(optionDiv);
         });
+    }
+
+    checkAnswer = (selectedAnswer) => {
+        if (selectedAnswer === currentQuestion.CorrectAnswer) {
+            correctAnswers++;
+        }
+    
+        currentQuestionIndex++;
+    
+        if (currentQuestionIndex < maxQuestions) {
+            this.getQuestions(selectedQuiz);
+        } else {
+            this.showResults();
+        }
+    }
+    
+    showResults = () => {
+        localStorage.setItem('CorrectAnswers', correctAnswers);
+        return window.location.assign('result.html');
     }
 
 }
