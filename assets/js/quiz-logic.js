@@ -78,10 +78,9 @@ export class Game {
             correctAnswers++;
         }
     
-        this.saveUserData(selectedAnswer);
         currentQuestionIndex++;
 
-        if (currentQuestionIndex <= maxQuestions) {
+        if (currentQuestionIndex < maxQuestions) {
             this.getQuestions(selectedQuiz);
         } else {
             this.showResults();
@@ -90,17 +89,17 @@ export class Game {
     
     showResults = () => {
         console.log(answeredQuestions);
-        localStorage.setItem('CorrectAnswers', correctAnswers);
-        localStorage.setItem('UserResultData', JSON.stringify(answeredQuestions));
+        localStorage.setItem('CorrectAnswers', JSON.stringify({correctAnswers: correctAnswers, totalQuestions: maxQuestions}));
+        //localStorage.setItem('UserResultData', JSON.stringify(answeredQuestions));
         return window.location.assign('result.html');
     }
 
-    saveUserData = (selectedAnswer) => {
-        let userResultData = {
-            question: currentQuestion.QuestionText,
-            corretAnswer: currentQuestion.CorrectAnswer,
-            userAnswer: selectedAnswer,
-        };
-        answeredQuestions.push(userResultData);
-    }
+    // saveUserData = (selectedAnswer) => {
+    //     let userResultData = {
+    //         question: currentQuestion.QuestionText,
+    //         corretAnswer: currentQuestion.CorrectAnswer,
+    //         userAnswer: selectedAnswer,
+    //     };
+    //     answeredQuestions.push(userResultData);
+    // }
 }
