@@ -1,7 +1,10 @@
+// Importerar klasser från "classes.js"
 import { Quiz, Question, QuizzesFromStorage } from "./classes.js";
 
+// Hämtar alla tillgängliga quizzes från localstorage
 const quizzesFromStorage = QuizzesFromStorage();
 
+// Kontrollerar om det finns quizzes i localstorage
 if(quizzesFromStorage.length === 0) {
     const startQuiz1 = () => {
         const questionData = [
@@ -137,9 +140,13 @@ if(quizzesFromStorage.length === 0) {
         return questionData.map(data => new Question(data.questionText, data.options, data.correctAnswer, data.type));
     };
 
+    // Skapar objekt av nya quizzes 
     const newQuiz = new Quiz(crypto.randomUUID(), "Städer Quiz", startQuiz1());
     const newQuiz2 = new Quiz(crypto.randomUUID(), "JavaScript Programmering Quiz", startQuiz2());
 
+    // Lägger till de nya quzzies i localstorage
     quizzesFromStorage.push(newQuiz, newQuiz2);
+
+    // Sparar de nya quizzes i localstorage
     localStorage.setItem("AnkademinQuizes", JSON.stringify(quizzesFromStorage));
 }

@@ -1,3 +1,4 @@
+// Importerar klasser från "classes.js"
 import { QuizzesFromStorage } from "./classes.js";
 
 const quizzesFromStorage = QuizzesFromStorage();
@@ -9,6 +10,7 @@ const quizCounter = document.getElementById("quiz-question-counter");
 const quizOptions = document.getElementById("quiz-options");
 const quizProgressBar = document.getElementById("quiz-progressbar");
 
+// Sätter variablar till quiz
 let maxQuestions = 0;
 let selectedQuiz;
 let currentQuestion = {};
@@ -18,6 +20,7 @@ let answeredQuestions = [];
 
 export class Game {
 
+    // Hämtar vald quiz, döljer tillgängliga quizzes och visar quiz layout
     getSelectQuiz = (e) => {
         const quizId = e.target.id;
         console.log(quizId);
@@ -31,16 +34,25 @@ export class Game {
         quizLayoutDivBlock.classList.remove("hidden");
     }
 
+    // Laddar frågor till quiz
     getQuestions = (quiz) => {
-        currentQuestion = quiz.Questions[currentQuestionIndex];
-        console.log(quiz);
 
+        // Hämtar den aktuella frågan från quizet
+        currentQuestion = quiz.Questions[currentQuestionIndex];
+
+        // Tilldelar frågan till p tagen i html
         quizQuestion.textContent = currentQuestion.QuestionText;
+
+        // Visar vilken fråga man ligger på
         quizCounter.textContent = `Fråga ${currentQuestionIndex + 1} av ${maxQuestions}`;
+
+        // Justerar progressbaren för quiz
         quizProgressBar.style.width = `${((currentQuestionIndex + 1) / maxQuestions) * 100}%`;
 
+        // Rensar föregående svaren för att skriva ut nya
         quizOptions.innerHTML = "";
 
+        // Går igenom alla svaren för aktuell fråga och skapar radios
         currentQuestion.Options.forEach((option) => {
             const optionDiv = document.createElement("div");
             optionDiv.classList.add("relative", "flex", "items-start");
@@ -73,13 +85,18 @@ export class Game {
         });
     }
 
+    // Kontrollerar om användaren har svarat rätt på frågan
     checkAnswer = (selectedAnswer) => {
+
+        // Om användaren har svarat rätt ökas poängen med 1
         if (selectedAnswer === currentQuestion.CorrectAnswer) {
             correctAnswers++;
         }
     
+        // Går till nästa fråga i quiz (Array)
         currentQuestionIndex++;
 
+        // Kontrollerar om det finns fler frågor, annars visas resultatet
         if (currentQuestionIndex < maxQuestions) {
             this.getQuestions(selectedQuiz);
         } else {
@@ -87,8 +104,8 @@ export class Game {
         }
     }
     
+    // Sparar användarens korrekta svar och det totala antalet frågor i localStorage
     showResults = () => {
-        console.log(answeredQuestions);
         localStorage.setItem('CorrectAnswers', JSON.stringify({correctAnswers: correctAnswers, totalQuestions: maxQuestions}));
         //localStorage.setItem('UserResultData', JSON.stringify(answeredQuestions));
         return window.location.assign('result.html');

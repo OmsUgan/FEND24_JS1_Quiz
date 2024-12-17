@@ -1,16 +1,23 @@
+// Importerar klasser från "classes.js" och "quiz-logic.js"
 import { QuizzesFromStorage } from "./classes.js";
 import { Game } from "./quiz-logic.js";
 
 const quizzesFromStorage = QuizzesFromStorage();
 const quizAvailableDivBlock = document.getElementById("available-quizzes");
 
+// Funktion som listar tillgängliga quzzies i html
 const loadQuizList = () => {
     const quizStatusText = document.getElementById("quiz-status");
 
+    // Kontrollerar om det finns quizzes i localstorage
     if (quizzesFromStorage.length === 0) {
+
+        // Om det inte finns quizzes visas texten nedan
         quizStatusText.textContent = "Finns inga quiz!";
         quizStatusText.classList.remove("pb-5")
     } else {
+
+        // Skapar element och listar quizzes
         quizStatusText.textContent = "Tillgängliga quiz";
 
         const quizUl = document.createElement("ul");
