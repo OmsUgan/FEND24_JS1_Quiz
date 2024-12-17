@@ -14,6 +14,7 @@ let selectedQuiz;
 let currentQuestion = {};
 let currentQuestionIndex = 0;
 let correctAnswers = 0;
+let answeredQuestions = [];
 
 export class Game {
 
@@ -77,9 +78,10 @@ export class Game {
             correctAnswers++;
         }
     
+        this.saveUserData(selectedAnswer);
         currentQuestionIndex++;
-    
-        if (currentQuestionIndex < maxQuestions) {
+
+        if (currentQuestionIndex <= maxQuestions) {
             this.getQuestions(selectedQuiz);
         } else {
             this.showResults();
@@ -87,8 +89,18 @@ export class Game {
     }
     
     showResults = () => {
+        console.log(answeredQuestions);
         localStorage.setItem('CorrectAnswers', correctAnswers);
+        localStorage.setItem('UserResultData', JSON.stringify(answeredQuestions));
         return window.location.assign('result.html');
     }
 
+    saveUserData = (selectedAnswer) => {
+        let userResultData = {
+            question: currentQuestion.QuestionText,
+            corretAnswer: currentQuestion.CorrectAnswer,
+            userAnswer: selectedAnswer,
+        };
+        answeredQuestions.push(userResultData);
+    }
 }
